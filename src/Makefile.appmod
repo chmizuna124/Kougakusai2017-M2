@@ -10,10 +10,7 @@ SRCDIRS =   @(APPLDIR) \
             @(APPLDIR)/communication \
             @(APPLDIR)/device \
             @(APPLDIR)/contest \
-            @(APPLDIR)/sort \
             @(APPLDIR)/detection \
-            @(APPLDIR)/controller \
-            @(APPLDIR)/kunokunosort \
             $(KERNELDIR)/target/ev3_gcc/api/src $(KERNELDIR)/target/ev3_gcc/TLSF-2.4.6/src
 
 # Compiler options

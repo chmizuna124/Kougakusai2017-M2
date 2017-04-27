@@ -6,20 +6,7 @@ APPL_CXXOBJS += \
     Contest.o \
     display.o \
     Touch.o \
-    CountDetection.o \
     TimeDetection.o \
-    KunokunoMotors.o \
-    Arm.o \
-    BubbleSort.o \
-    SelectionSort.o \
-    QuickSort.o \
-    Move.o \
-    Color.o \
-    SelectionSortCource.o \
-    ShuffleCource.o \
-    BubbleSortCource.o \
-    QuickSortCource.o \
-    ICource.o \
 
 SRCLANG := c++
 

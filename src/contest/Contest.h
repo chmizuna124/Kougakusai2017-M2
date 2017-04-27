@@ -7,11 +7,11 @@
 
 #include "StartUp.h"
 #include "Starter.h"
-#include "../kunokunosort/SelectionSortCource.h"
-#include "../kunokunosort/BubbleSortCource.h"
-#include "../kunokunosort/QuickSortCource.h"
-#include "../kunokunosort/ShuffleCource.h"
-#include "../kunokunosort/ICource.h"
+// #include "../kunokunosort/SelectionSortCource.h"
+// #include "../kunokunosort/BubbleSortCource.h"
+// #include "../kunokunosort/QuickSortCource.h"
+// #include "../kunokunosort/ShuffleCource.h"
+// #include "../kunokunosort/ICource.h"
 
 #include "../device/Touch.h"
 
@@ -45,7 +45,7 @@ namespace contest {
 
             /* 状態 */
             // TR_STATE state;
-            kunokunosort::ICource* cource = NULL;
+            //kunokunosort::ICource* cource = NULL;
 
         public:
             /**
