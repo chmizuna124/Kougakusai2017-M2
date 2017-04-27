@@ -4,4 +4,4 @@
 *.log
 *.csv
 *.swp
-selab
+src/selab
