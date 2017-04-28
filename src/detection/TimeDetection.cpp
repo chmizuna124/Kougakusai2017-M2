@@ -5,6 +5,7 @@
  */
 
 #include "TimeDetection.h"
+using namespace device;
 
 namespace detection{
     TimeDetection::TimeDetection(){

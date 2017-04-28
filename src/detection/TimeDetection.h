@@ -13,6 +13,7 @@
 #include "../device/display.h"
 
 using namespace ev3api;
+using namespace device;
 
 namespace detection{
 	class TimeDetection : public IDetection {
@@ -33,28 +34,28 @@ namespace detection{
         * @brief コンストラクタ
         * @author sisido
         */
-     	TimeDetection();
+        TimeDetection();
 
-     	/**
+        /**
         * @brief 目標時間に達したかどうかを検知する
         * 目標時間は基底時間からの経過時間を指す
         * @return 目標時間に達した(true)，してない(false)
         * @author sisido
         */
-    	bool isDetected();
-    	
-    	/**
+        bool isDetected();
+
+        /**
         * @brief 基底時間をセットする
         * @author sisido
         */
-    	void setBaseTime();
-    	
-    	/**
+        void setBaseTime();
+
+        /**
         * @brief 目標時間をセットする
         * 単位はミリ秒なので10秒を目標時間にしたかったら「10000」を引数に指定してください
         * @author sisido
         */
-    	void setTargetTime(uint32_t target_time);
+        void setTargetTime(uint32_t target_time);
     };
 };
 
