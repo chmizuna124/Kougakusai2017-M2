@@ -1,18 +1,16 @@
-/**
- * @file StartUp.h
- * @brief スタートアップクラス
- * @author motoki nagaoka
- * @date 2015/07/08
- */
-
-
 #ifndef START_UP_
 #define START_UP_
-#define BALL_NUM_DEFAULT    12  // ボールの数のデフォルト値
-#include "../device/Touch.h"
-#include "../device/display.h"
 
-namespace contest{
+// #include "../device/ColorSensor.h"
+#include "../device/Touch.h"
+#include "../device/Display.h"
+// #include "../device/GyroSensor.h"
+// #include "../drive/StraightRunning.h"
+// #include "../measurement/TimeMeasurement.h"
+// #include "../device/Arm.h"
+// #include "../device/Shippo.h"
+
+namespace contest_pkg{
     class StartUp{
         public:
             /**
@@ -23,45 +21,106 @@ namespace contest{
             static StartUp* getInstance();
 
             /**
-             * @brief スタートアップする
-             *
+             * @brief コース選択とオートキャリブレーションの終了を確認
+             * @details オートキャリブレーションのやり方: 黒い線を超えるまで15cm以内の、白いところに置いてタッチセンサを押す
+             * @return 終了したらtrue
              *
              */
-            bool startUp();
-            void reset();
+            bool isFinished();
             /**
              * @brief 選択されたコースを取得する
              * @details Lコース：L, Rコース：R
              *
              * @return 'L', または 'R'
-             * @author motoki nagaoka
              */
             char getSelectedCourse();
 
-            int getBallNum();
+            /**
+             * @brief スタートを受け付ける
+             * @details タッチセンサが押されるまでまつ
+             * @return タッチセンサが押されたらtrue
+             */
+            bool acceptStart();
 
         private:
 
-            static StartUp* instance;	// インスタンス
-
-            int index = 0;
-            bool courseSelected = false;
-            int ballNum = BALL_NUM_DEFAULT;
-            bool confirmed = false;
-            // 前回にタッチセンサが押されていたらtrue
-            bool hasPressed = true;
-
-            char selectedCourse = 0;	// 選択されたコース (Lコース； 'L', Rコース：'R')
-
-            Touch* touch;
-            Display* display;
+            static StartUp* instance_;    // インスタンス
 
             //コンストラクタ
             StartUp();
 
-            bool calibrate();		// キャリブレーションする
-            bool selectCourse();	// コースを選択する
-            bool isPressed();
+            char selectedCourse_ = 0;     // 選択されたコース (Lコース； 'L', Rコース：'R')
+
+            // double currentPwm_= 0;        // 現在のPWM値（加速度つける時に使う）
+            // int currentTimeMs_ = 0;        // 現在の時刻（加速度つける時に使う）
+
+            // 走行体情報
+            // device::ColorSensor* brightnessInfo_;
+            device::Touch* touch_;
+            device::Display* display_;
+            // device::GyroSensor* gyroSensor_;
+
+            // int whiteValue_ = 0;
+            // int blackValue_ = 0;
+
+
+            // オートキャリブレーションの状態
+            // enum class AutoCalibrationState{
+            //     INIT,
+            //     WAIT,
+            //     ADJUST_ARM,
+            //     FORWARD,
+            //     STOP,
+            //     BACK,
+            //     SHOW_RESULT,
+            //     STOP_FURIFURI,
+            //     FINISHED,
+            // } autoCalibrationState_ = AutoCalibrationState::INIT;
+
+            bool selectCourse();    // コースを選択する
+
+            /**
+             * @brief 自動でキャリブレーションする
+             *
+             * @return キャリブレーションが終了したらtrue
+             */
+            //bool calibrateAutomatically();
+
+            /**
+             * @brief タッチセンサがクリックされた
+             *
+             * @return タッチセンサがクリックされた時true
+             */
+           bool isClicked();
+
+
+            /**
+             * @brief 加速度をつけてスピードを変える
+             *
+             * @param currentPwm 現在ののPWM
+             * @param targetPwm 目的のPWM
+             * @param acceleration 加速度[pwm/s]
+             *
+             * @return 目的のPWMになった時true
+             */
+            //bool changeSpeed(int currentPwm, int targetPwm, int acceleration);
+
+            /**
+             * @brief 加速していき、減速して止まる
+             *
+             * @param maxPwm 最大のPWM
+             * @param acceleration 加速度[pwm/s]
+             *
+             * @return 終了した時true
+             */
+            //bool runAndStop(int maxPwm, int acceleration);
+
+
+            /**
+             * @brief キャリブレーション値を探す
+             * @details 最小値を黒の値、最大値を白の値とし、blackValue_, whiteValue_にセットする
+             */
+            //void findCalibratedValue();
 
     };
 }

@@ -2,9 +2,8 @@ APPL_COBJS +=
 
 APPL_CXXOBJS += \
     StartUp.o \
-    Starter.o \
     Contest.o \
-    display.o \
+    Display.o \
     Touch.o \
     TimeDetection.o \
 

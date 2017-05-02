@@ -1,186 +1,65 @@
+/**
+ * @file Contest.cpp
+ * @brief 競技クラス
+ * @author usui kakeru
+ */
+
 #include "Contest.h"
 
-/**
- * テスト用
- */
-// #include "../device/Color.h"////////////
 
-// using namespace controller;
-// using namespace sort;
-// using namespace kunokunosort;
-namespace contest {
+namespace contest_pkg {
 
     /* メンバ */
-    Contest* Contest::instance = 0;
+    Contest* Contest::instance_ = 0;
 
 
     /* コンストラクタ */
     Contest::Contest() {
-        su = StartUp::getInstance();
-        starter = Starter::getInstance();
-
-        // state = STARTUP;
+        startUp_ = StartUp::getInstance();
     }
 
     /* インスタンス取得 */
     Contest* Contest::getInstance() {
-        if (instance == 0) {
-            instance = new Contest();
+        if (instance_ == 0) {
+            instance_ = new Contest();
         }
-        return instance;
+        return instance_;
     }
-
-    // void Contest::reset(){
-    //     KunokunoMotors::getInstance()->setAllPWM(0, 0, 0);
-    //     su->reset();
-    //     starter->reset();
-    // }
 
     /* 走行体制御 */
     void Contest::perform() {
-    //     static int counter = 0;
+        static bool initialized = false;
 
+        /*スタートアップ*/
+        if ( startUp_->isFinished() ){
+            /*選択されたコースのインスタンスを生成する */
+            switch(startUp_->getSelectedCourse()){
+            case 'L':
+                if (!initialized) {
+                    // courseL_ = new Course(SelectedCourse::L_COURSE);
+                    initialized = true;
+                }
+                break;
 
-    //     /*スタートアップ・スタート受付*/
-    //     if ( su->startUp() && starter->start() ){
-    //         char message[30] = "course: ";
-    //         sprintf(message, "%s %c", message, su->getSelectedCourse());
-    //         ev3_lc¥d_draw_string(message, 0, 0);
+            case 'R':
+                if (!initialized) {
+                    // courseR_ = new Course(SelectedCourse::R_COURSE);
+                    initialized = true;
+                }
+                break;
+            }
 
-    //         Display::getInstance()->updateDisplay(" counter: ", counter++, 1);
-
-    //         /*選択されたコースを攻略する */
-    //         switch(su->getSelectedCourse()){
-    //             /**
-    //              * Selection sort cource
-    //              **/
-    //             case 'L':
-    //                 cource = new SelectionSortCource(su->getBallNum());
-    //                 cource->run();
-    //                 reset();
-    //                 break;
-
-    //                 /**
-    //                  * Bubble sort cource
-    //                  **/
-    //             case 'R':
-    //                 cource = new BubbleSortCource(su->getBallNum());
-    //                 cource->run();
-    //                 reset();
-    //                 break;
-
-    //                 /**
-    //                  * コース選択画面の表示名を変えるには、
-    //                  * StartUp.cppのselectCourse()内の
-    //                  * courseNamesを変更してください
-    //                  */
-    //                 /**
-    //                  * Quick sort cource
-    //                  **/
-    //             case '1':
-    //                 cource = new QuickSortCource(su->getBallNum());
-    //                 cource->run();
-    //                 reset();
-    //                 break;
-    //                 break;
-    //                 /**
-    //                  * shuffle cource
-    //                  **/
-    //             case '2':
-    //                 cource = new ShuffleCource(su->getBallNum());
-    //                 cource->run();
-    //                 reset();
-    //                 break;
-    //                 /**
-    //                  * auto
-    //                  * ソート→シャッフル を繰り返す
-    //                  **/
-    //             case '3':
-    //                 {
-    //                     int sortedSleepMs   = 20000; // ソート後に止まる時間(ms)
-    //                     int shuffledSleepMs = 15000; // シャッフル後に止まる時間(ms)
-    //                     Touch::State waitState;
-
-    //                     cource = new SelectionSortCource(su->getBallNum());
-    //                     cource->run();
-
-    //                     waitState = Touch::getInstance()->wait(sortedSleepMs);
-    //                     if (Touch::LONG_PUSHED == waitState){
-    //                         reset();
-    //                         break;
-    //                     }
-    //                     else{
-    //                         cource = new ShuffleCource(su->getBallNum());
-    //                         cource->run();
-    //                     }
-
-    //                     waitState = Touch::getInstance()->wait(shuffledSleepMs);
-    //                     if (Touch::LONG_PUSHED == waitState){
-    //                         reset();
-    //                         break;
-    //                     }
-    //                     else{
-    //                         cource = new BubbleSortCource(su->getBallNum());
-    //                         cource->run();
-    //                     }
-
-    //                     waitState = Touch::getInstance()->wait(sortedSleepMs);
-    //                     if (Touch::LONG_PUSHED == waitState){
-    //                         reset();
-    //                         break;
-    //                     }
-    //                     else{
-    //                         cource = new ShuffleCource(su->getBallNum());
-    //                         cource->run();
-    //                     }
-
-    //                     waitState = Touch::getInstance()->wait(shuffledSleepMs);
-    //                     if (Touch::LONG_PUSHED == waitState){
-    //                         reset();
-    //                         break;
-    //                     }
-    //                     else{
-    //                         cource = new QuickSortCource(su->getBallNum());
-    //                         cource->run();
-    //                     }
-
-    //                     waitState = Touch::getInstance()->wait(sortedSleepMs);
-    //                     if (Touch::LONG_PUSHED == waitState){
-    //                         reset();
-    //                         break;
-    //                     }
-    //                     else{
-    //                         cource = new ShuffleCource(su->getBallNum());
-    //                         cource->run();
-    //                     }
-
-    //                     waitState = Touch::getInstance()->wait(shuffledSleepMs);
-    //                     if (Touch::LONG_PUSHED == waitState){
-    //                         reset();
-    //                         break;
-    //                     }
-    //                 }
-    //                 break;
-    //             case '4':
-
-    //                 while(1){
-    //                     Display::getInstance()->updateDisplay("data: ",Color::getInstance()->getColor(),13);
-    //                 }
-
-    //                 break;
-    //             case '5':
-    //                 break;
-    //             case '6':
-    //                 break;
-    //             case '7':
-    //                 break;
-    //             case '8':
-    //                 break;
-    //             case '9':
-    //                 break;
-    //             case 'A':
-    //                 break;
-    //         }
-    //     }
+            /* スタート受付 */
+            if ( startUp_->acceptStart() ){
+                switch (startUp_->getSelectedCourse() ){
+                    case 'L':
+                    // courseL_->capture();
+                    break;
+                    case 'R':
+                    // courseR_->capture();
+                    break;
+                }
+            }
+        }
     }
 }

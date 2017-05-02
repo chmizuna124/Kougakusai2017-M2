@@ -10,7 +10,7 @@
 
 /* 名前空間 */
 using namespace ev3api;
-using namespace contest;
+using namespace contest_pkg;
 
 /* 最初からいたやつ */
 #if defined(BUILD_MODULE)

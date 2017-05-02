@@ -1,51 +1,29 @@
 /**
  * @file Contest.h
- * @author maruyama
+ * @brief 競技クラス
+ * @author usui kakeru
  */
-#ifndef	 CONTEST_
+#ifndef  CONTEST_
 #define CONTEST_
 
 #include "StartUp.h"
-#include "Starter.h"
-// #include "../kunokunosort/SelectionSortCource.h"
-// #include "../kunokunosort/BubbleSortCource.h"
-// #include "../kunokunosort/QuickSortCource.h"
-// #include "../kunokunosort/ShuffleCource.h"
-// #include "../kunokunosort/ICource.h"
+// #include "Course.h"
 
-#include "../device/Touch.h"
+namespace contest_pkg {
 
-namespace contest {
-
-    /**
-     * @brief 走行体クラス
-     * control関数を呼び出しと、走行準備(スタートアップ)、コース攻略を行います。
-     * シングルトンによって実装されているので、インスタンスを取得する場合はgetInstanceを呼び出してください。
-     */
     class Contest {
         public:
-            /*
-               enum TR_STATE
-               {
-               STARTUP,
-               RUN
-               };
-             */
 
         private:
-            /* インスタンス */
-            static Contest* instance;
+            //インスタンス
+            static Contest* instance_;
 
-            /* スタートアップ */
-            StartUp* su;
+            //スタートアップ
+            StartUp* startUp_;
 
-            /* スタータ */
-            Starter* starter;
-
-
-            /* 状態 */
-            // TR_STATE state;
-            //kunokunosort::ICource* cource = NULL;
+            //コース
+            // Course* courseL_;
+            // Course* courseR_;
 
         public:
             /**
@@ -60,8 +38,6 @@ namespace contest {
              * 現在のコースに合わせて戦略を実行し、コースを攻略します。
              */
             void perform();
-
-            void reset();
 
         private:
             /**
