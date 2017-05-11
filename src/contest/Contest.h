@@ -7,6 +7,7 @@
 #define CONTEST_
 
 #include "StartUp.h"
+#include "../device/Touch.h"
 // #include "Course.h"
 
 namespace contest_pkg {
@@ -17,7 +18,11 @@ namespace contest_pkg {
         private:
             //インスタンス
             static Contest* instance_;
+            static device::Touch* hogetouch_;
 
+            bool prePressed_;
+            int count_;
+            int oto_;
             //スタートアップ
             StartUp* startUp_;
 
